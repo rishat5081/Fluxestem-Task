@@ -25,6 +25,7 @@ router.get("/", async (req, res, next) => {
       }
     });
 
+  console.log(fileList[0].dataValues.fileHeadings[0]);
   res.render("index", { title: "Task", fileList });
 });
 

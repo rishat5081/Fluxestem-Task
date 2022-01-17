@@ -9,6 +9,14 @@
       crossorigin="anonymous"
     ></script>
   </head>
+  <style>
+    table,
+    th,
+    thead,
+    td {
+      border: 1px solid black;
+    }
+  </style>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
@@ -19,6 +27,29 @@
       <br />
       <input type="submit" value="Submit" />
     </form>
+
+    <%if(fileList === null ){%>
+    <h3>No Record Found</h3>
+    <%}else{%> <%fileList.forEach(element =>{%>
+    <p>File Name : <%=element.fileName%></p>
+
+    <table>
+      <tr>
+        <!-- printing the headings -->
+        <% element.fileHeadings.forEach(headings =>{%>
+        <th><%=headings.headingsName%></th>
+        <%})%>
+      </tr>
+      <!-- printing the columns -->
+
+      <tr>
+        <% element.fileHeadings.forEach(headings =>{%> <%
+        headings.fileColumns.forEach(columns =>{%>
+        <td><%=columns.columnData%></td>
+        <%})%> <%})%>
+      </tr>
+      <%})%> <%}%>
+    </table>
     <script>
       function convertData_Array(str, delimiter = ",") {
         const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
@@ -67,20 +98,6 @@
 
         reader.readAsText(input);
       });
-    </script>
-
-    <script>
-      // $.ajax({
-      //   type: "POST",
-      //   url: `${window.location.origin}/uploadFileContent`,
-      //   data: fd,
-      //   dataType: "json",
-      //   cache: false,
-      //   processData: false,
-      //   success: (response) => {
-      //     alert(response);
-      //   },
-      // });
     </script>
   </body>
 </html>
