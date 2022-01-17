@@ -4,16 +4,16 @@ var express = require("express"),
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "Task" });
 });
 
 router.post("/uploadFileContent", async (req, res) => {
   const { headings, content, fileName } = req.body;
-  console.log(JSON.parse(content), fileName);
+  // console.log(JSON.parse(content), fileName);
 
   try {
     //creating the new file into the database
-    const insertFile = await Database.filesName
+    const insertFile = await Database.filesNames
       .create({
         fileName,
       })
@@ -31,8 +31,13 @@ router.post("/uploadFileContent", async (req, res) => {
     //the file is created now adding the file columns names
 
     //using the sequelize bulkCreate to insert many values at once
-    const insertFileHeadings = await Database.filesHeadings
-      .bulkCreate(fileHeading)
+    const insertFileHeadings = await Database.fileHeadings
+      .bulkCreate(
+        fileHeading.map((heading) => ({
+          headingsName: heading,
+          fileID: insertFile.dataValues.fileID,
+        }))
+      )
       .then((result) => {
         if (result) return result;
       })
@@ -49,3 +54,15 @@ router.post("/uploadFileContent", async (req, res) => {
 });
 
 module.exports = router;
+
+console.log(Database);
+// Database.filesNames
+//   .findAll()
+//   .then((result) => {
+//     if (result) console.log(result);
+//   })
+//   .catch((err) => {
+//     if (err) {
+//       throw new Error("Error Inserting File Name");
+//     }
+//   });

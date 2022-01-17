@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      models.filesName.hasMany(fileHeadings, {
+      models.filesNames.hasMany(fileHeadings, {
         foreignKey: "fileID",
       });
 
-      fileHeadings.belongsTo(models.filesName, {
+      fileHeadings.belongsTo(models.filesNames, {
         targetKey: "fileID",
         foreignKey: "fileID",
       });
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: true,
         autoIncrement: false,
         references: {
-          model: "filesName",
+          model: "filesNames",
           key: "fileID",
         },
       },

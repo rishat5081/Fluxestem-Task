@@ -40,7 +40,10 @@ Object.keys(Database).forEach((modelName) => {
   }
 });
 
-// Database.sequelize = sequelize;
-// Database.Sequelize = Sequelize;
-
+try {
+  sequelize.authenticate();
+  console.log("Database Connected.");
+} catch (error) {
+  console.error("Unable to connect to the database:", error);
+}
 module.exports = Database;
