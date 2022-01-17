@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   fileColumns.init(
     {
-      columnData: DataTypes.STRING,
+      columnData: DataTypes.TEXT,
       headingID: {
         type: DataTypes.INTEGER,
         allowNull: false,

@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       columnData: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       headingID: {
         type: Sequelize.INTEGER,
