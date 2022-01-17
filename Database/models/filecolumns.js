@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class fileColumns extends Model {
     /**
@@ -11,13 +9,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.fileHeadings.hasMany(fileColumns, {
+        foreignKey: "headingID",
+      });
+
+      fileColumns.belongsTo(models.fileHeadings, {
+        targetKey: "headingID",
+        foreignKey: "headingID",
+      });
     }
   }
-  fileColumns.init({
-    columnData: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'fileColumns',
-  });
+  fileColumns.init(
+    {
+      columnData: DataTypes.STRING,
+      headingID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        autoIncrement: false,
+        references: {
+          model: "fileHeadings",
+          key: "headingID",
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: "fileColumns",
+      freezeTableName: true,
+    }
+  );
   return fileColumns;
 };

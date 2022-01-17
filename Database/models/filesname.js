@@ -13,11 +13,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   filesName.init(
     {
+      fileID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+
       fileName: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "filesName",
+      freezeTableName: true,
     }
   );
   return filesName;

@@ -4,7 +4,9 @@
     "password": "",
     "database": "taskDatabase",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": true,
+    "freezeTableName": true
   },
   "test": {
     "username": "root",
